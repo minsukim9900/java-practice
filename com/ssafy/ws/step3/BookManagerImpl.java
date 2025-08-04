@@ -3,12 +3,23 @@ package com.ssafy.ws.step3;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookManager {
+public class BookManagerImpl implements IBookManager {
     private static final int MAX_SIZE = 100;
     Book[] books = new Book[MAX_SIZE];
     int size = 0;
 
-    void add(Book book) {
+    private BookManagerImpl() {}
+
+    private static class Holder {
+        private static final BookManagerImpl INSTANCE = new BookManagerImpl();
+    }
+
+    public static IBookManager getInstance() {
+        return Holder.INSTANCE;
+    }
+
+    @Override
+    public void add(Book book) {
         if (size == MAX_SIZE) {
             System.out.println("도서 양이 최대입니다.");
             return;
@@ -16,7 +27,8 @@ public class BookManager {
         books[size++] = book;
     }
 
-    void remove(String isbn) {
+    @Override
+    public void remove(String isbn) {
         int index = 0;
         for (int i = 0; i < size; i++) {
             if (books[i].getIsbn().equals(isbn)) {
@@ -30,13 +42,17 @@ public class BookManager {
         size--;
     }
 
-    Book[] getList() {
+    @Override
+    public Book[] getList() {
         Book[] result = new Book[size];
         System.arraycopy(books, 0, result, 0, size);
         return result;
     }
 
-    Book serachByIsbn(String isbn) {
+
+
+    @Override
+    public Book searchByIsbn(String isbn) {
         for (Book book : books) {
             if (book != null && book.getIsbn().equals(isbn)) {
                 return book;
@@ -45,7 +61,8 @@ public class BookManager {
         return null;
     }
 
-    Book[] searchByTitle(String title) {
+    @Override
+    public Book[] searchByTitle(String title) {
         List<Book> matched = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             if (books[i] != null && books[i].getTitle().contains(title)) {
@@ -55,7 +72,8 @@ public class BookManager {
         return matched.toArray(new Book[0]);
     }
 
-    Magazine[] getMagazines() {
+    @Override
+    public Magazine[] getMagazines() {
         List<Magazine> mags = new ArrayList<>();
         for(int i = 0; i < size; i++) {
             if(books[i] instanceof Magazine) {
@@ -65,7 +83,8 @@ public class BookManager {
         return mags.toArray(new Magazine[0]);
     }
 
-    Book[] getBooks() {
+    @Override
+    public Book[] getBooks() {
         List<Book> normal = new ArrayList<>();
 
         for(int i = 0; i < size; i++) {
@@ -76,7 +95,8 @@ public class BookManager {
         return normal.toArray(new Book[0]);
     }
 
-    int getTotalPrice() {
+    @Override
+    public int getTotalPrice() {
         int price = 0;
 
         for(int i = 0; i < size; i++) {
@@ -87,7 +107,8 @@ public class BookManager {
         return price;
     }
 
-    double getPriceAvg() {
+    @Override
+    public double getPriceAvg() {
         if(size == 0) {
             return 0.0;
         }
