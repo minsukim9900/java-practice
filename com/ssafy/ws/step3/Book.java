@@ -20,6 +20,54 @@ public class Book {
         this.desc = desc;
     }
 
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
     @Override
     public String toString() {
         // 각각 너비를 맞춰서 출력 (예: id 5, title 10, author 4, publisher 10, price 6, description 15)
