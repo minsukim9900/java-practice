@@ -3,25 +3,21 @@
 *.jar
 *.war
 *.ear
-hs_err_pid*.*            # JVM 크래시 덤프
+hs_err_pid*.*
 
 # Gradle
-.gradle/
-build/
-!gradle/wrapper/         # wrapper은 버전 관리
-gradle-wrapper.jar
+/.gradle/
+/build/
+!/gradle/wrapper/gradle-wrapper.jar
+!/gradle/wrapper/gradle-wrapper.properties
 
 # Maven
 /target/
 
 # === IDE ===
-# IntelliJ IDEA
 /.idea/
-/*.iml
+*.iml
 *.iws
-
-# (팀에서 공유할 설정만 남기고 싶다면, 예:
-#  .idea/inspectionProfiles/ 혹은 특정 .xml만 추적하도록 커스터마이징할 수 있음)
 
 # Eclipse
 /.classpath
@@ -38,29 +34,22 @@ gradle-wrapper.jar
 credentials.properties
 secrets.yml
 *.log
-*.tmp
 *.cache
 
 # === 운영체제 ===
-# macOS
 .DS_Store
-
-# Windows
 Thumbs.db
 ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
 
 # === 기타 ===
-# 빌드 도구/캐시(불필요한 경우)
 /coverage/
 /test-output/
 
-# 임시/백업
 *.bak
 *.swp
 *.tmp
 
-# 자바 인증 키
 *.keystore
 *.jks
