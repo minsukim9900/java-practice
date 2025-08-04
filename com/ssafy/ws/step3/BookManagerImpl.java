@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookManagerImpl implements IBookManager {
-    private static final int MAX_SIZE = 100;
-    Book[] books = new Book[MAX_SIZE];
-    int size = 0;
 
-    private BookManagerImpl() {}
+    private final List<Book> books = new ArrayList<>();
+
+    private BookManagerImpl() {
+    }
 
     private static class Holder {
         private static final BookManagerImpl INSTANCE = new BookManagerImpl();
@@ -20,35 +20,29 @@ public class BookManagerImpl implements IBookManager {
 
     @Override
     public void add(Book book) {
-        if (size == MAX_SIZE) {
-            System.out.println("도서 양이 최대입니다.");
+        if (book == null) return;
+
+        if (searchByIsbn(book.getIsbn()) != null) {
+            System.out.println("이미 존재하는 ISBN 입니다.");
             return;
         }
-        books[size++] = book;
+        books.add(book);
     }
 
     @Override
     public void remove(String isbn) {
-        int index = 0;
-        for (int i = 0; i < size; i++) {
-            if (books[i].getIsbn().equals(isbn)) {
-                index = i;
+        if (isbn == null) return;
+        for (int i = books.size() - 1; i >= 0; i--) {
+            if (books.get(i) != null && books.get(i).getIsbn().equals(isbn)) {
+                books.remove(i);
             }
         }
-
-        for (int i = index + 1; i < size; i++) {
-            books[i - 1] = books[i];
-        }
-        size--;
     }
 
     @Override
     public Book[] getList() {
-        Book[] result = new Book[size];
-        System.arraycopy(books, 0, result, 0, size);
-        return result;
+        return books.toArray(new Book[0]);
     }
-
 
 
     @Override
@@ -63,10 +57,11 @@ public class BookManagerImpl implements IBookManager {
 
     @Override
     public Book[] searchByTitle(String title) {
+        if (title == null) return new Book[0];
         List<Book> matched = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            if (books[i] != null && books[i].getTitle().contains(title)) {
-                matched.add(books[i]);
+        for (Book b : books) {
+            if (b != null && b.getTitle() != null && b.getTitle().contains(title)) {
+                matched.add(b);
             }
         }
         return matched.toArray(new Book[0]);
@@ -75,9 +70,9 @@ public class BookManagerImpl implements IBookManager {
     @Override
     public Magazine[] getMagazines() {
         List<Magazine> mags = new ArrayList<>();
-        for(int i = 0; i < size; i++) {
-            if(books[i] instanceof Magazine) {
-                mags.add((Magazine)books[i]);
+        for (Book b : books) {
+            if (b instanceof Magazine) {
+                mags.add((Magazine) b);
             }
         }
         return mags.toArray(new Magazine[0]);
@@ -86,10 +81,9 @@ public class BookManagerImpl implements IBookManager {
     @Override
     public Book[] getBooks() {
         List<Book> normal = new ArrayList<>();
-
-        for(int i = 0; i < size; i++) {
-            if(!(books[i] instanceof Magazine)) {
-                normal.add(books[i]);
+        for (Book b : books) {
+            if (b != null && !(b instanceof Magazine)) {
+                normal.add(b);
             }
         }
         return normal.toArray(new Book[0]);
@@ -97,22 +91,18 @@ public class BookManagerImpl implements IBookManager {
 
     @Override
     public int getTotalPrice() {
-        int price = 0;
-
-        for(int i = 0; i < size; i++) {
-            if(books[i] != null) {
-                price += books[i].getPrice();
+        int sum = 0;
+        for (Book b : books) {
+            if (b != null) {
+                sum += b.getPrice();
             }
         }
-        return price;
+        return sum;
     }
 
     @Override
     public double getPriceAvg() {
-        if(size == 0) {
-            return 0.0;
-        }
-        int price = getTotalPrice();
-        return (double)price / size;
+        if (books.isEmpty()) return 0.0;
+        return (double) getTotalPrice() / books.size();
     }
 }

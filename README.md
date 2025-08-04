@@ -41,5 +41,10 @@
      - BookManangerImpl 클래스를 객체가 1개만 유지되도록 Singleton 디자인 패턴을 적용
      - BookTest 클래스 내에 BookManagerImpl 클래스 객체 생성 부분을 Singleton 디자인 패턴을 적용한 코드로 변경하여 테스트
 5. 도서 ArrayList 실습
+   - 요구사항
+     - 도서, 잡지 정보를 저장하는 클래스는 Book, Magazine 클래스를 활용
+     - 도서 리스트를 관리하는 클래스는 BookManagerImpl 클래스를 활용
+     - BookManagerImpl 클래스의 도서리스트의 자료구조를 배열에서 ArrayList로 변경하고, 모든 메서드의 구현을 ArrayList 자료구조 사용법에 맞게 변경
+     - BookTest 클래스 내에 변경, 추가된 기능을 테스트하기 위한 코드를 작성하여 테스트
 6. 도서 예외처리
 7. 도서파일 입출력
