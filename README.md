@@ -33,6 +33,13 @@
      - BookManager 클래스에 도서리스트의 가격의 총합을 반환하는 getTotalPrice 메소드를 생성
      - BookManager 클래스에 도서 가격의 평균을 반환하는 getPriceAvg 메소드를 생성
 4. 도서 매니저 인터페이스
+   - 요구사항
+     - 도서, 잡지 정보를 저장할 클래스는 Book, Magazine 클래스를 활용
+     - BookManager 클래스의 기능에 대한 명세(spec), 표준을 제공하기 위한 설계를 위해 리팩토링을 적용
+       - IBookManager 인터페이스를 작성하고 BookManager 클래스의 기능 중 공개할 메서드들을 선언
+     - BookManager 클래스를 BookManagerImpl로 이름을 변경하고 IBookManager 인터페이스를 구현하도록 변경
+     - BookManangerImpl 클래스를 객체가 1개만 유지되도록 Singleton 디자인 패턴을 적용
+     - BookTest 클래스 내에 BookManagerImpl 클래스 객체 생성 부분을 Singleton 디자인 패턴을 적용한 코드로 변경하여 테스트
 5. 도서 ArrayList 실습
 6. 도서 예외처리
 7. 도서파일 입출력
