@@ -14,6 +14,8 @@ hs_err_pid*.*
 # Maven
 /target/
 
+/out
+
 # === IDE ===
 /.idea/
 *.iml
